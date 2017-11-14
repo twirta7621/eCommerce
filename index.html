@@ -1,0 +1,135 @@
+<!doctype HtML>
+<html>
+    <head>
+        <title>Gadgets and Pranks</title>
+        <style>
+            body {
+                background-color: black;
+                background-image: url("bk.png");
+                background-repeat: no-repeat;
+                background-position: right bottom;
+                background-attachment: fixed;
+            }
+            h1 {
+                text-align: center;
+                color: white;
+                font-family: "Courier New", Times, serif;
+                font-style: normal;
+            }
+            h2 {
+                color: white;
+                font-family: "Courier New", Times, serif;
+            }
+            div {
+                color: white;
+                font-family: "Courier New", Times, serif;          
+            }
+            img {
+                width:400px;
+                height:300px;
+            }
+            #button {
+                background-color: dodgerblue;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 15px;
+                border-radius: 8px;
+                font-family: "Courier New", Times, serif;                                 
+            }
+        </style>
+        <script>
+            var tax = 0.0875;
+            var ship = 0;
+            var dis = 0;
+            var p1 = 15, wpr1 = 12;
+            var p2 = 8, wpr2 = 5;
+            var p3 = 10, wpr3 = 7;
+
+            function process(){
+                //calculations
+                var q1 = parseInt(document.getElementById("lsr").value);
+                var q2 = parseInt(document.getElementById("gum").value);
+                var q3 = parseInt(document.getElementById("stk").value);
+                var itemssold = q1 + q2 + q3;
+                var cusubt = (q1*p1)+(q2*p2)+(q3*p3);
+                var tax2 = cusubt*tax;
+                var cusubt2 = ((q1*p1)+(q2*p2)+(q3*p3)) + tax2;
+                var cosubt = (wpr1*q1)+(wpr2*q2)+(wpr3*q3); 
+                var profit = cusubt - cosubt;
+                //shipping cost
+                if (cusubt <100){
+                    ship = 25;
+                }else if (cusubt >=100 && cusubt<=200){
+                    ship = 10;
+                }else{
+                    ship = 0;
+                }
+                var total = cusubt2 + ship;
+                //building the string for customer
+                var build1 = "<pre>";
+                build1 += "CUSTOMER ORDER DETAILS";
+                build1 += "<br>SUBTOTAL:              $" + cusubt;
+                build1 += "<br>TAX:                   " + tax*100 + "%";
+                build1 += "<br>SHIPPING AND HANDLING: $" + ship;
+                build1 += "<br>TOTAL:                 $" + total;
+                
+                var op1 = document.getElementById("customer");
+                op1.innerHTML=build1;
+                //building string for company
+                var build2 = "<pre>";
+                build2 += "ORDER DETAILS FOR COMPANY";
+                build2 += "<br>TOTAL ITEMS SOLD:  " + itemssold;
+                build2 += "<br>CUSTOMER SUBTOTAL: $" + cusubt;
+                build2 += "<br>COMPANY SUBTOTAL:  $" + cosubt;
+                build2 += "<br>PROFIT/LOSS:       $" + profit;
+                
+                var op2 = document.getElementById("company");
+                op2.innerHTML=build2
+            }
+        </script>
+    </head>
+    <body>
+        <h1>
+            <p>Gadgets and Pranks</p>
+        </h1>
+        <h2>
+            Laser Pointer
+        </h2>
+        <br>
+        <div>
+            <img src="laser.jpg">
+            <br>
+            <p>This will shine a focused green light at anywhere you point it. This is amazing for a lot of things, from playing with your cat to scaring your friends. Just don't point it at airplanes.</p>
+            <br>
+            <p>Price: $15</p><br><p>Quantity: </p>
+            <input type="text" id="lsr" value="0" placeholder="Enter Quantity" style="background-color:Tomato;">
+            <hr>
+            <h2>
+                Shock Gum
+            </h2>
+            <img src="gum.jpg">
+            <p>Pull here for a 'shocking' surprise. Perfect for that hyperactive kid in math class, or that annoying teacher.</p>
+            <br>
+            <p>Price: $8<p>
+            <br>
+            <p>Quantity:</p>
+            <input type="text" id="gum" value="0" placeholder="Enter Quantity" style="background-color:Tomato;">
+            <hr>
+            <h2>Stink Bombs</h2>
+            <img src="stink.jpg"><br>
+            <p>Break the glass and RUN!!! This nifty little trick will make everyone get away from faster than a speeding bullet.</p>
+            <br><p>Price: $10</p><br><p>Quantity: </p>
+            <input type="text" id="stk" value="0" placeholder="Enter Quantity" style="background-color:Tomato;">
+            <hr>
+            <button onclick="process()" id= "button" style="background-color:DodgerBlue;">Process Order</button>
+        </div>
+        <div id="customer"></div>
+        <div id="company"></div>
+
+
+    </body>
+</html>
